@@ -3,36 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Gaming Desk Setup</title>
+    <title>Magnus Pro | Ultimate Gaming Desk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --text: #f1f1f1;
-            --text-secondary: #b8b8b8;
+            --primary: #0a0a12;
+            --secondary: #121828;
+            --accent: #1e3a8a;
+            --highlight: #3b82f6;
+            --highlight-hover: #60a5fa;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glow: 0 0 15px rgba(59, 130, 246, 0.5);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes rgb-cycle {
+            0% { border-color: #3b82f6; }
+            33% { border-color: #8b5cf6; }
+            66% { border-color: #ec4899; }
+            100% { border-color: #3b82f6; }
         }
         
         body {
             background-color: var(--primary);
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         header {
             background: linear-gradient(135deg, var(--secondary), var(--accent));
-            padding: 2rem 0;
+            padding: 4rem 0 6rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
         
         header::before {
@@ -42,90 +65,214 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.2;
+            background: radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
         }
         
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
         header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
             position: relative;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 2;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #c7d2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
         }
         
         header p {
-            font-size: 1.2rem;
-            max-width: 800px;
+            font-size: 1.25rem;
+            max-width: 700px;
             margin: 0 auto;
             position: relative;
+            z-index: 2;
             color: var(--text-secondary);
         }
         
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: var(--highlight);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+            box-shadow: var(--glow);
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            background: var(--highlight-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .cta-button::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent,
+                transparent,
+                transparent
+            );
+            transform: rotate(30deg);
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover::after {
+            left: 100%;
+        }
+        
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
         
-        .main-image {
+        .hero-image {
             width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin: 2rem 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            max-width: 1000px;
+            height: auto;
+            border-radius: 12px;
+            margin: -3rem auto 0;
+            display: block;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.4);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(5deg) translateY(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid transparent;
+            animation: rgb-cycle 8s infinite linear;
+        }
+        
+        .hero-image:hover {
+            transform: perspective(1000px) rotateX(5deg) translateY(-10px);
         }
         
         .specs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin: 3rem 0;
+            margin: 5rem 0;
         }
         
         .spec-card {
             background: var(--secondary);
             padding: 2rem;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            transition: var(--transition);
             border-left: 4px solid var(--highlight);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spec-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition);
         }
         
         .spec-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .spec-card:hover::before {
+            opacity: 1;
         }
         
         .spec-card h3 {
             color: var(--highlight);
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .spec-card p {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .spec-card p::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--highlight);
         }
         
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin: 3rem 0;
+            margin: 5rem 0;
         }
         
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
             height: 250px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         
         .gallery-caption {
@@ -133,82 +280,301 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0,0,0,0.7);
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 1.5rem;
+            color: white;
+            font-weight: 500;
         }
         
         .features {
-            margin: 4rem 0;
+            margin: 6rem 0;
         }
         
         .feature {
             display: flex;
             align-items: center;
-            margin-bottom: 2rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
+            margin-bottom: 4rem;
+            background: linear-gradient(to right, var(--secondary) 0%, rgba(30, 58, 138, 0.1) 100%);
+            border-radius: 16px;
             overflow: hidden;
+            position: relative;
+            min-height: 400px;
+        }
+        
+        .feature::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+            pointer-events: none;
         }
         
         .feature:nth-child(even) {
             flex-direction: row-reverse;
+            background: linear-gradient(to left, var(--secondary) 0%, rgba(30, 58, 138, 0.1) 100%);
         }
         
         .feature-image {
             flex: 1;
-            min-height: 300px;
+            min-height: 400px;
             background-size: cover;
             background-position: center;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .feature:hover .feature-image {
+            flex: 1.2;
+        }
+        
+        .feature-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, transparent 30%);
+        }
+        
+        .feature:nth-child(even) .feature-image::after {
+            background: linear-gradient(270deg, var(--secondary) 0%, transparent 30%);
         }
         
         .feature-content {
             flex: 1;
-            padding: 2rem;
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
         }
         
         .feature h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
             color: var(--highlight);
+            font-weight: 700;
+        }
+        
+        .feature p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--highlight);
+            font-weight: bold;
+        }
+        
+        .rgb-border {
+            position: relative;
+            padding: 3px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #3b82f6);
+            background-size: 400% 400%;
+            animation: gradient 8s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .rgb-border-inner {
+            background: var(--secondary);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        
+        .tech-specs {
+            margin: 6rem 0;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        
+        .spec-table th {
+            text-align: left;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--highlight);
+            font-weight: 600;
+        }
+        
+        .spec-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .spec-table tr:hover td {
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .floating-icon:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-icon:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+        
+        .floating-icon:nth-child(3) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+        
+        .floating-icon:nth-child(4) {
+            top: 70%;
+            left: 20%;
+            animation-delay: 3s;
         }
         
         footer {
             background: var(--secondary);
-            padding: 3rem 0;
+            padding: 5rem 0 3rem;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 6rem;
+            position: relative;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
         
         .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
             color: var(--text);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-links a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--highlight), var(--accent));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
         }
         
         .social-links a:hover {
-            color: var(--highlight);
+            transform: translateY(-5px);
+            color: white;
+            box-shadow: var(--glow);
         }
         
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--highlight);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            box-shadow: var(--glow);
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: var(--highlight-hover);
+            transform: translateY(-3px) !important;
+        }
+        
+        @media (max-width: 1024px) {
             .feature {
                 flex-direction: column;
+                min-height: auto;
             }
             
             .feature:nth-child(even) {
@@ -217,130 +583,305 @@
             
             .feature-image {
                 width: 100%;
-                min-height: 200px;
+                min-height: 300px;
+            }
+            
+            .feature-image::after {
+                background: linear-gradient(0deg, var(--secondary) 0%, transparent 30%);
+            }
+            
+            .feature:nth-child(even) .feature-image::after {
+                background: linear-gradient(0deg, var(--secondary) 0%, transparent 30%);
+            }
+            
+            .feature:hover .feature-image {
+                flex: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 3rem 0 5rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-image {
+                margin-top: -2rem;
+            }
+            
+            .feature-content {
+                padding: 2rem;
+            }
+            
+            .feature h3 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
+        <div class="particles" id="particles"></div>
         <div class="container">
-            <h1>Ultimate Wall-to-Wall Gaming Desk</h1>
-            <p>A custom-built gaming station designed for performance, aesthetics, and maximum immersion</p>
+            <h1>Magnus Pro Gaming Desk</h1>
+            <p>The ultimate wall-to-wall battle station engineered for professional gamers and streamers</p>
+            <a href="#features" class="cta-button">
+                Explore Features <i class="fas fa-arrow-down" style="margin-left: 0.5rem;"></i>
+            </a>
         </div>
     </header>
     
     <div class="container">
-        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Gaming Desk Setup" class="main-image">
+        <div class="rgb-border">
+            <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_hero_1.jpg?v=1693549211" alt="Magnus Pro Gaming Desk" class="hero-image">
+        </div>
         
         <div class="specs-grid">
             <div class="spec-card">
-                <h3>Desk Dimensions</h3>
+                <h3><i class="fas fa-ruler-combined"></i> Desk Dimensions</h3>
                 <p><strong>Length:</strong> Custom wall-to-wall (typically 6-7 feet / 180-210 cm)</p>
                 <p><strong>Depth:</strong> 24" to 30" (60-76 cm) for optimal workspace</p>
                 <p><strong>Height:</strong> Standard 29"-30" (74-76 cm) or adjustable</p>
+                <p><strong>Weight Capacity:</strong> 220 lbs (100 kg) distributed load</p>
             </div>
             
             <div class="spec-card">
-                <h3>Top Material Options</h3>
-                <p>✔ Matte black engineered wood (gaming aesthetic)</p>
-                <p>✔ Carbon fiber laminate (RGB-friendly)</p>
-                <p>✔ Solid wood (premium look)</p>
+                <h3><i class="fas fa-palette"></i> Surface Options</h3>
+                <p>✔ Carbon fiber textured matte black</p>
+                <p>✔ Magnetic RGB-reactive surface</p>
+                <p>✔ Premium matte laminate (scratch resistant)</p>
+                <p>✔ Solid walnut or oak (limited edition)</p>
             </div>
             
             <div class="spec-card">
-                <h3>Layout Zones</h3>
-                <p>◈ Left: Monitor(s) + mousepad</p>
-                <p>◈ Middle: Keyboard and writing space</p>
-                <p>◈ Right: Console/audio interface/storage</p>
-                <p>◈ PC Tower: Under-desk or displayed with LED accents</p>
+                <h3><i class="fas fa-sliders-h"></i> Smart Features</h3>
+                <p>◈ Integrated wireless charging pad</p>
+                <p>◈ Built-in cable management system</p>
+                <p>◈ Motorized height adjustment (optional)</p>
+                <p>◈ App-controlled RGB lighting zones</p>
             </div>
         </div>
         
-        <div class="features">
+        <section id="features" class="features">
             <div class="feature">
-                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                <div class="feature-content">
-                    <h3>Ergonomic Design</h3>
-                    <p>Custom-built to fit your space perfectly with optimal height and depth for long gaming sessions. The wall-to-wall design maximizes your available space while providing ample room for multiple monitors and peripherals.</p>
-                    <p>Optional monitor arms can be added to free up desk space and improve viewing angles for better posture.</p>
+                <div class="floating-icons">
+                    <i class="fas fa-gamepad floating-icon" style="font-size: 2rem;"></i>
+                    <i class="fas fa-headphones floating-icon" style="font-size: 1.5rem;"></i>
+                    <i class="fas fa-microphone floating-icon" style="font-size: 2.2rem;"></i>
+                    <i class="fas fa-keyboard floating-icon" style="font-size: 1.8rem;"></i>
                 </div>
-            </div>
-            
-            <div class="feature">
+                <div class="feature-image" style="background-image: url('https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Cable_Management_1.jpg?v=1693549211');"></div>
                 <div class="feature-content">
-                    <h3>Premium Materials</h3>
-                    <p>Choose from high-quality surface materials that complement your gaming aesthetic:</p>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>Matte black engineered wood with scratch-resistant coating</li>
-                        <li>Lightweight carbon fiber laminate that diffuses RGB lighting beautifully</li>
-                        <li>Solid hardwood for a luxurious, natural look</li>
+                    <h3>Revolutionary Cable Management</h3>
+                    <p>The Magnus Pro features our most advanced cable management system yet, with:</p>
+                    <ul class="feature-list">
+                        <li>Magnetic cable anchors that snap into place</li>
+                        <li>Integrated under-desk cable tray with 360° access</li>
+                        <li>Removable grommets for clean pass-through</li>
+                        <li>Built-in power strip mounting</li>
                     </ul>
-                    <p>All options include built-in cable grommets for clean wiring.</p>
+                    <p>Say goodbye to cable spaghetti and hello to a pristine, professional setup.</p>
                 </div>
-                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1614624532983-4ce03382d63d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
             </div>
             
             <div class="feature">
-                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                 <div class="feature-content">
-                    <h3>Smart Lighting Integration</h3>
-                    <p>The desk features integrated RGB lighting with multiple zones that can be controlled via software or mobile app. Choose from:</p>
-                    <p>◈ Backlighting for monitor bias lighting</p>
-                    <p>◈ Under-desk ambient glow</p>
-                    <p>◈ Perimeter accent lighting</p>
-                    <p>All lighting is fully customizable with millions of color options and dynamic effects that sync with your games or music.</p>
+                    <h3>Magnetic Modular Ecosystem</h3>
+                    <p>Expand your setup with our magnetic accessories that snap perfectly into place:</p>
+                    <ul class="feature-list">
+                        <li>Magnetic monitor arms with tool-free installation</li>
+                        <li>Snap-on RGB light bars with adjustable color temperature</li>
+                        <li>Modular headphone hooks and controller mounts</li>
+                        <li>Quick-attach cup holders and accessory trays</li>
+                    </ul>
+                    <p>The entire system works together seamlessly for endless customization.</p>
+                </div>
+                <div class="feature-image" style="background-image: url('https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Magnetic_Modular_Ecosystem_1.jpg?v=1693549211');"></div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-image" style="background-image: url('https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_RGB_1.jpg?v=1693549211');"></div>
+                <div class="feature-content">
+                    <h3>Immersive RGB Lighting</h3>
+                    <p>Create the perfect ambiance with fully customizable lighting:</p>
+                    <ul class="feature-list">
+                        <li>Perimeter LED strips with 16.8 million colors</li>
+                        <li>Under-desk bias lighting to reduce eye strain</li>
+                        <li>Game/audio sync modes that react in real-time</li>
+                        <li>Smart integration with Razer Chroma, Corsair iCUE, and more</li>
+                    </ul>
+                    <p>Control everything through our mobile app or voice commands.</p>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <h2 style="text-align: center; margin: 3rem 0 2rem; font-size: 2rem; color: var(--highlight);">Desk Setup Gallery</h2>
+        <section class="tech-specs">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem; color: var(--highlight);">Technical Specifications</h2>
+            <div class="rgb-border">
+                <div class="rgb-border-inner">
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Specification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Frame Material</td>
+                                <td>Aerospace-grade aluminum alloy</td>
+                            </tr>
+                            <tr>
+                                <td>Surface Material</td>
+                                <td>Scratch-resistant matte laminate (3mm thickness)</td>
+                            </tr>
+                            <tr>
+                                <td>Weight Capacity</td>
+                                <td>220 lbs (100 kg) distributed load</td>
+                            </tr>
+                            <tr>
+                                <td>Cable Management</td>
+                                <td>Integrated tray, magnetic anchors, removable grommets</td>
+                            </tr>
+                            <tr>
+                                <td>RGB Lighting</td>
+                                <td>Addressable LEDs, 16.8 million colors, multiple zones</td>
+                            </tr>
+                            <tr>
+                                <td>Adjustable Height</td>
+                                <td>25.6" - 50.4" (65-128 cm) with motorized option</td>
+                            </tr>
+                            <tr>
+                                <td>Warranty</td>
+                                <td>5-year limited warranty</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <h2 style="text-align: center; margin: 5rem 0 3rem; font-size: 2.5rem; color: var(--highlight);">Gallery</h2>
         
         <div class="gallery">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Desk Overview">
-                <div class="gallery-caption">Full desk overview showing clean cable management</div>
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Setup_1.jpg?v=1693549211" alt="Full Setup">
+                <div class="gallery-caption">Professional streaming setup with dual monitors</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Monitor Setup">
-                <div class="gallery-caption">Ultrawide monitor configuration with LED backlighting</div>
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Detail_1.jpg?v=1693549211" alt="Desk Surface">
+                <div class="gallery-caption">Premium textured surface with magnetic attachments</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cable Management">
-                <div class="gallery-caption">Hidden cable management system with under-desk trays</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="RGB Lighting">
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_RGB_2.jpg?v=1693549211" alt="RGB Lighting">
                 <div class="gallery-caption">Customizable RGB lighting with multiple zones</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Accessory Wall">
-                <div class="gallery-caption">Pegboard accessory wall for headphones and controllers</div>
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Accessories_1.jpg?v=1693549211" alt="Accessories">
+                <div class="gallery-caption">Modular accessories for complete customization</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="PC Display">
-                <div class="gallery-caption">Showcase area for PC tower with accent lighting</div>
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Standing_1.jpg?v=1693549211" alt="Standing Mode">
+                <div class="gallery-caption">Motorized height adjustment for sit/stand work</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://secretlab.co/cdn/shop/files/Secretlab_Magnus_Pro_Cable_Management_2.jpg?v=1693549211" alt="Cable Management">
+                <div class="gallery-caption">Completely hidden cables for clean aesthetic</div>
             </div>
         </div>
     </div>
     
     <footer>
-        <div class="container">
-            <h3>Ultimate Gaming Desk Setup</h3>
-            <p>Custom designed for the perfect gaming experience</p>
+        <div class="footer-content">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">Magnus Pro Gaming Desk</h3>
+            <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--text-secondary);">Engineered for performance, designed for gamers</p>
             
             <div class="social-links">
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
                 <a href="#"><i class="fab fa-twitch"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
             </div>
             
-            <p>&copy; 2023 Gaming Desk Setup. All rights reserved.</p>
+            <p style="margin-top: 3rem; color: var(--text-secondary);">&copy; 2023 Magnus Pro. All rights reserved.</p>
         </div>
     </footer>
     
-    <!-- Font Awesome for icons (loaded from CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+    
+    <script>
+        // Floating particles animation
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 20 : 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 1px and 3px
+                const size = Math.random() * 2 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `float ${duration}s infinite ${delay}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Back to top button
+        function handleScroll() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            window.addEventListener('scroll', handleScroll);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Animate elements when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.spec-card, .feature, .gallery-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
